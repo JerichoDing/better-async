@@ -50,7 +50,7 @@ describe('safeAll', () => {
     });
 
     it('应该处理不同类型的返回值', async () => {
-      const [error, results] = await safeAll([
+      const [error, results] = await safeAll<number | string | { id: number } | null>([
         Promise.resolve(1),
         Promise.resolve('string'),
         Promise.resolve({ id: 3 }),
@@ -203,7 +203,7 @@ describe('safeAll', () => {
 
   describe('边界情况', () => {
     it('应该处理混合类型的返回值', async () => {
-      const [error, results] = await safeAll([
+      const [error, results] = await safeAll<number | string | boolean | null | undefined>([
         () => Promise.resolve(1),
         Promise.resolve('string'),
         () => Promise.resolve(true),
