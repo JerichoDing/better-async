@@ -1,6 +1,5 @@
 // src/core/safeAsync.ts
 import { AppError } from '../error/AppError'
-import { ErrorCode } from '../error/ErrorCode'
 import { defaultErrorMapper } from '../error/errorMapper'
 import { createTimeoutSignal } from '../utils/timeout'
 import { mergeAbortSignals } from '../utils/abort'
