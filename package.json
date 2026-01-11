@@ -16,7 +16,8 @@
     "build": "tsup",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "test:result": "jest && cat tests/test-result.md"
   },
   "keywords": [
     "async",

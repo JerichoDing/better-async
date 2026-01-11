@@ -21,7 +21,6 @@ export async function safeAsync<T>(
     timeout,
     signal,
     retry = 0,
-    fallback,
     onError,
     mapError = defaultErrorMapper,
   } = options
@@ -45,8 +44,8 @@ export async function safeAsync<T>(
       if (attempts > retry) {
         onError?.(appError)
 
-        if (fallback !== undefined) {
-          return fallback
+        if (Object.prototype.hasOwnProperty.call(options, 'fallback')) {
+          return options.fallback as T
         }
 
         throw appError

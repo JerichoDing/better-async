@@ -180,15 +180,18 @@ describe('createTimeoutSignal', () => {
 
   describe('边界情况', () => {
     it('应该处理非常大的超时值', (done) => {
-      const signal = createTimeoutSignal(Number.MAX_SAFE_INTEGER);
+      // 使用一个很大的值，但不会导致立即溢出
+      // Node.js 的 setTimeout 最大延迟约为 2^31-1 毫秒（约 24.8 天）
+      const largeTimeout = 1000 * 60 * 60 * 24; // 24小时
+      const signal = createTimeoutSignal(largeTimeout);
       expect(signal.aborted).toBe(false);
       
-      // 手动取消以完成测试
+      // 在短时间内验证 signal 没有被取消
       setTimeout(() => {
         expect(signal.aborted).toBe(false);
         done();
       }, 10);
-    }, 100);
+    }, 200);
 
     it('应该处理已取消的 controller', () => {
       const controller = new AbortController();

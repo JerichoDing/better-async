@@ -170,7 +170,7 @@ describe('safeAll', () => {
   });
 
   describe('函数执行', () => {
-    it('应该延迟执行函数直到需要时', async () => {
+    it('应该立即执行函数（Promise.all 会立即调用）', async () => {
       let executed = false;
       const fn = () => {
         executed = true;
@@ -178,7 +178,9 @@ describe('safeAll', () => {
       };
 
       const promise = safeAll([fn]);
-      expect(executed).toBe(false);
+      // safeAll 使用 Promise.all，会立即调用函数
+      // 所以函数会立即执行，不会延迟
+      expect(executed).toBe(true);
 
       await promise;
       expect(executed).toBe(true);

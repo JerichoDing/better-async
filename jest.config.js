@@ -29,4 +29,8 @@ module.exports = {
       statements: 80,
     },
   },
+  reporters: [
+    'default',
+    '<rootDir>/tests/custom-reporter.js',
+  ],
 };
