@@ -26,7 +26,7 @@
     "typescript",
     "utility"
   ],
-  "author": "",
+  "author": "Jericho Ding",
   "license": "MIT",
   "devDependencies": {
     "@types/jest": "^29.5.0",

@@ -154,15 +154,18 @@ describe('withAsyncCatch', () => {
         return { data: 'result' };
       };
 
-      const safeFetch = withAsyncCatch(fetchData, (err) => {
-        console.error('Fetch failed:', err);
-      });
+      const onError = jest.fn();
+      const safeFetch = withAsyncCatch(fetchData, onError);
 
       const result1 = await safeFetch('valid');
       expect(result1).toEqual({ data: 'result' });
+      expect(onError).not.toHaveBeenCalled();
 
       const result2 = await safeFetch('invalid');
       expect(result2).toBeUndefined();
+      expect(onError).toHaveBeenCalledTimes(1);
+      expect(onError).toHaveBeenCalledWith(expect.any(Error));
+      expect((onError.mock.calls[0][0] as Error).message).toBe('Invalid URL');
     });
 
     it('应该用于数据库操作', async () => {
